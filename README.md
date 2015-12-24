@@ -12,6 +12,12 @@ $ tnotify --services=stdout \
 ```
 
 ```bash
+$ tnotify --services=desktop \
+    --title="Test Notification" \
+    echo 'Hey there!'
+```
+
+```bash
 $ tnotify --services=pushbullet \
 	--pushbullet-access-token=TOKEN \
 	--title="Test Notification" \
