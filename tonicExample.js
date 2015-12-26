@@ -7,7 +7,6 @@ notify.load('pushbullet', {
 notify.load('smtp', {
     host: 'mailtrap.io',
     port: 2525,
-    secure: true,
     username: 'YOUR_MAILTRAP_USERNAME',
     password: 'YOUR_MAILTRAP_PASSWORD',
     from: 'sender@mail.com',
