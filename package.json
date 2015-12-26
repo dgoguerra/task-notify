@@ -24,5 +24,14 @@
     "tmp": "^0.0.28",
     "twilio": "^2.8.0"
   },
+  "keywords": [
+    "cli",
+    "notification",
+    "notifier",
+    "notify",
+    "push",
+    "pushbullet",
+    "smtp"
+  ],
   "tonicExampleFilename": "tonicExample.js"
 }
