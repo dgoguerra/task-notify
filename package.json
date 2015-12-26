@@ -1,7 +1,7 @@
 {
   "name": "task-notify",
   "version": "0.1.0",
-  "description": "",
+  "description": "Notifications from the command line",
   "main": "lib/notify.js",
   "bin": {
     "tnotify": "lib/cli.js"
