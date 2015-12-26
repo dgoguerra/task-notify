@@ -2,30 +2,41 @@ task-notify
 ===========
 
 ```bash
-$ tnotify --list
+$ tnotify list
+```
+
+Test service (prints to stdout):
+
+```bash
+$ tnotify run --services=stdout --title="Test Notification" echo 'Hey there!'
+```
+
+Several services at once:
+
+```bash
+$ tnotify run --services=stdout,desktop echo 'Hey there!'
+```
+
+Different kinds of commands:
+
+```bash
+$ tnotify run --services=stdout echo 'Hey there'
+$ tnotify msg --services=stdout 'Hey there'
+$ tnotify msg --services=stdout Hey there using several arguments
+$ echo Hey there | tnotify --services=stdout
 ```
 
 ```bash
-$ tnotify --services=stdout \
-	--title="Test Notification" \
-	echo 'Hey there!'
-```
-
-```bash
-$ tnotify --services=desktop \
-    --title="Test Notification" \
-    echo 'Hey there!'
-```
-
-```bash
-$ tnotify --services=pushbullet \
+$ tnotify run --services=pushbullet \
 	--pushbullet-access-token=TOKEN \
-	--title="Test Notification" \
+    --title="Test Notification" \
 	echo 'Hey there!'
 ```
 
+Other services:
+
 ```bash
-$ tnotify --services=smtp \
+$ tnotify run --services=smtp \
     --smtp-host=mailtrap.io \
     --smtp-port=2525 \
     --smtp-secure=true \
@@ -33,24 +44,30 @@ $ tnotify --services=smtp \
     --smtp-password=PASSWORD \
     --smtp-from=from@mail.com \
     --smtp-to=to@mail.com \
-    --title="Test Notification" \
     echo 'Hey there!'
 ```
 
 ```bash
-$ tnotify --services=twilio \
+$ tnotify run --services=twilio \
     --twilio-account-sid=ACCOUNT_SID \
     --twilio-auth-token=TOKEN \
     --twilio-from=PHONE_NUMBER \
     --twilio-to=PHONE_NUMBER \
-    --title="Test Notification" \
     echo 'Hey there!'
 
-$ tnotify --services=twilio \
+# optionally, use --twilio-service-sid instead of --twilio-from
+$ tnotify run --services=twilio \
     --twilio-account-sid=ACCOUNT_SID \
     --twilio-auth-token=TOKEN \
     --twilio-service-sid=MESS_SERVICE_SID \
     --twilio-to=PHONE_NUMBER \
-    --title="Test Notification" \
     echo 'Hey there!'
+```
+
+```bash
+$ tnotify config list
+```
+
+```bash
+$ tnotify config --services=smtp
 ```
