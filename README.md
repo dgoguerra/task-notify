@@ -1,73 +1,71 @@
 task-notify
 ===========
 
+`tnotify` is a utility to send notifications and pipe command outputs to different third-party services.
+
+The goal of this project is mainly to have a useful command line tool to easily notify when a task is done or something happened through different services, and also to play with different APIs out there.
+
+It is oriented mainly to be used from the command line, but it could also be required and used within a Node project directly.
+
+Installation
+------------
+
 ```bash
+npm install -g task-notify
+which tnotify # /usr/local/bin/tnotify
+```
+
+Usage
+-----
+
+The currently supported services and options they require are:
+
+| Name | Description | Options |
+| ---- | ----------- | ------- |
+| `desktop` | Open a system notification in your desktop. Calls directly [node-notifier](https://github.com/mikaelbr/node-notifier). | None |
+| `pushbullet` | Push notes through your [Pushbullet](https://www.pushbullet.com/) account directly to your browser or phone. | `access_token` |
+| `smtp` | A SMTP client. | `host`, `port`, `secure` (boolean), `username`, `password`, `from`, `to` |
+| `stdout` | For testing, outputs the content to stdout. | None |
+| `twilio` | [Twilio](https://www.twilio.com/) SMS API. | `account_sid`, `auth_token`, `service_sid`, `from`, `to` |
+
+Each service's options can be provided directly through the command line:
+
+```bash
+$ tnotify msg -s pushbullet --pushbullet-access-token=TOKEN 'Hey there!'
+```
+
+or configured beforehand:
+
+```bash
+$ tnotify config -s pushbullet
+Current values of an option are shown between brackets. Leave empty to maintain the current value.
+Configuring 'pushbullet' service:
+Access Token []: qwerty123456
+Saved into '/Users/dgo/.tnotify/config.json'
+
+# and from now on...
+$ tnotify msg -s pushbullet 'Hey there!'
+```
+
+`tnotify` has 4 different actions:
+
+```bash
+# list existing services
 $ tnotify list
+
+# configure services
+$ tnotify config -s desktop,pushbullet,smtp
+
+# run a command and send its output through the selected services:
+$ tnotify run -s desktop,pushbullet,smtp -- ls -alh
+
+# send a message directly
+$ tnotify msg -s desktop,pushbullet,smtp --title='Test Notification' 'Hey there!'
+
+# 'msg' action is assumed. the command's piped output is used as the message to send
+$ echo 'Hey there!' | tnotify -s desktop,pushbullet,smtp
 ```
 
-Test service (prints to stdout):
-
-```bash
-$ tnotify run --services=stdout --title="Test Notification" echo 'Hey there!'
-```
-
-Several services at once:
-
-```bash
-$ tnotify run --services=stdout,desktop echo 'Hey there!'
-```
-
-Different kinds of commands:
-
-```bash
-$ tnotify run --services=stdout echo 'Hey there'
-$ tnotify msg --services=stdout 'Hey there'
-$ tnotify msg --services=stdout Hey there using several arguments
-$ echo Hey there | tnotify --services=stdout
-```
-
-```bash
-$ tnotify run --services=pushbullet \
-	--pushbullet-access-token=TOKEN \
-    --title="Test Notification" \
-	echo 'Hey there!'
-```
-
-Other services:
-
-```bash
-$ tnotify run --services=smtp \
-    --smtp-host=mailtrap.io \
-    --smtp-port=2525 \
-    --smtp-secure=true \
-    --smtp-username=USERNAME \
-    --smtp-password=PASSWORD \
-    --smtp-from=from@mail.com \
-    --smtp-to=to@mail.com \
-    echo 'Hey there!'
-```
-
-```bash
-$ tnotify run --services=twilio \
-    --twilio-account-sid=ACCOUNT_SID \
-    --twilio-auth-token=TOKEN \
-    --twilio-from=PHONE_NUMBER \
-    --twilio-to=PHONE_NUMBER \
-    echo 'Hey there!'
-
-# optionally, use --twilio-service-sid instead of --twilio-from
-$ tnotify run --services=twilio \
-    --twilio-account-sid=ACCOUNT_SID \
-    --twilio-auth-token=TOKEN \
-    --twilio-service-sid=MESS_SERVICE_SID \
-    --twilio-to=PHONE_NUMBER \
-    echo 'Hey there!'
-```
-
-```bash
-$ tnotify config list
-```
-
-```bash
-$ tnotify config --services=smtp
-```
+License
+-------
+MIT license - http://www.opensource.org/licenses/mit-license.php
