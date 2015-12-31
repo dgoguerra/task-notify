@@ -2,15 +2,26 @@
   "name": "task-notify",
   "version": "0.1.2",
   "description": "Notifications from the command line",
-  "main": "lib/notify.js",
-  "bin": {
-    "tnotify": "lib/cli.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Diego Guerra <dgoguerra.or@gmail.com>",
   "license": "MIT",
+  "main": "lib/notify.js",
+  "preferGlobal": true,
+  "keywords": [
+    "cli",
+    "notification",
+    "notifier",
+    "notify",
+    "push",
+    "pushbullet",
+    "smtp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dgoguerra/task-notify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dgoguerra/task-notify/issues"
+  },
   "dependencies": {
     "debug": "^2.2.0",
     "lodash": "^3.10.1",
@@ -24,14 +35,11 @@
     "tmp": "^0.0.28",
     "twilio": "^2.8.0"
   },
-  "keywords": [
-    "cli",
-    "notification",
-    "notifier",
-    "notify",
-    "push",
-    "pushbullet",
-    "smtp"
-  ],
+  "bin": {
+    "tnotify": "lib/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "tonicExampleFilename": "tonicExample.js"
 }
